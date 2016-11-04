@@ -14,3 +14,6 @@ then navigate to,
 ```
 http://localhost:8080/
 ```
+
+## Resources
+http://js.cytoscape.org/
