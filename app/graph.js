@@ -43,15 +43,15 @@ export default class Simulation {
       ], 
       
       edges: [
-        { data: { id: 'Load Balancer"Server 1', weight: 1, source: 'Load Balancer', target: 'Server 1' } },
-        { data: { id: 'Load BalancerServer 2', weight: 3, source: 'Load Balancer', target: 'Server 2' } },
-        { data: { id: 'Load BalancerServer 3', weight: 3, source: 'Load Balancer', target: 'Server 3' } },
-        { data: { id: 'Load BalancerServer 4', weight: 3, source: 'Load Balancer', target: 'Server 4' } }
+        { data: { id: 'Load BalancerS1', weight: 1, source: 'Load Balancer', target: 'Server 1' } },
+        { data: { id: 'Load BalancerS2', weight: 1, source: 'Load Balancer', target: 'Server 2' } },
+        { data: { id: 'Load BalancerS3', weight: 1, source: 'Load Balancer', target: 'Server 3' } },
+        { data: { id: 'Load BalancerS4', weight: 1, source: 'Load Balancer', target: 'Server 4' } }
       ]
     },
   
     layout: {
-    name: 'breadthfirst',
+    name: 'random',
     directed: false,
     roots: '#a',
     padding: 10
