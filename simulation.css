@@ -1,0 +1,13 @@
+/*button {
+    display: block:
+}
+
+.container > div {
+    float: left;
+}*/
+
+fieldset{
+    border: solid 1px black;
+    display:inline-block;
+    position: fixed;  
+}

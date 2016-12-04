@@ -146,5 +146,42 @@ function roundRobin(iterations){
    }	    
 }
 
+printResults(arr){
 
+  var tbl = document.getElementById("output");
+  
+  for( var period = 1; period <= totalPeriods; period++ ){
+        
+    var tr = document.createElement('tr');
+
+    var td = document.createElement('td');
+    td.appendChild(document.createTextNode(roundNumber(balance)));
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    td.appendChild(document.createTextNode(roundNumber(payment)));
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    interest = balance * intRateNum;
+    td.appendChild(document.createTextNode(roundNumber(interest)));
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    principal = payment - interest;
+    td.appendChild(document.createTextNode(roundNumber(principal)));
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    balance = balance - principal;
+    td.appendChild(document.createTextNode(roundNumber(balance)));
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    td.appendChild(document.createTextNode(period));
+    tr.appendChild(td);
+
+    tbl.appendChild(tr);
+    }
+}
 
