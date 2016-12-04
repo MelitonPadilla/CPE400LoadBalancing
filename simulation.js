@@ -1,5 +1,4 @@
-class iteration {
-  constructor(step, node1Conn, node2Conn, node3Conn, currentNode, latency, cpu, region ) {
+function iteration (step, node1Conn, node2Conn, node3Conn, currentNode, latency, cpu, region ) {
     this.step = step;
     this.node1Conn = node1Conn;
     this.node2Conn = node2Conn;
@@ -7,12 +6,10 @@ class iteration {
     this.currentNode = currentNode;
     this.latency = latency;
     this.cpu = cpu;
-    this.region = region;
-  }  
+    this.region = region;    
 }
-
-function initialize(){
   
+function initialize() {
   var x = document.getElementById("canvas");
   var cr = x.getContext("2d");
   cr.beginPath();
@@ -73,7 +70,7 @@ function initialize(){
   line3.stroke();
   line3.closePath();
 
-  } 
+}
 
 initialize();
 
@@ -134,19 +131,22 @@ function sleep(milliseconds) {
     }
   }
 }
-
-function roundRobin(iterations){
-    
-   for( var it = 0; it < iterations; it++) {
-        for(var i = 0; i < 3;i++) {
-           if(i === 1)
-	       sleep(1000);
+/*
+function roundRobin(numIterations){
+    //constructor(step, node1Conn, node2Conn, node3Conn, currentNode, latency, cpu, region )
+   var table = [];
+   for( var i = 0; i < numIterations; i++) {
+        for(var n = 0
+        var it = new iteration(i,1,0,0,1,0,50,"USA");
+        if(
+        
 	
         }
    }	    
 }
+*/
 
-printResults(arr){
+function printResults(arr){
 
   var tbl = document.getElementById("output");
   
