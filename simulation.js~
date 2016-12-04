@@ -205,13 +205,6 @@ function lowestLatency(numIterations){
 
    return table;
 }
-//TODO// generate broken connections?
-function leastConnection(numIterations){
-}
-
-function ratio(numIterations){
-}
-
 
 function printResults(arr){
 
