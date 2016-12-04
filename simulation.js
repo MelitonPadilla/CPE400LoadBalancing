@@ -72,6 +72,14 @@ document.getElementById('reset').addEventListener('click', function() {
         initialize();
       }, false);
 
+document.getElementById('reset').addEventListener('click', function() {
+        var canvas = document.getElementById('canvas');
+        var context = canvas.getContext('2d');
+        context.clearRect(0, 0, canvas.width, canvas.height);
+        initialize();
+      }, false);
+
+
 function drawLine1(color){
   var x = document.getElementById("canvas");
   var line1 = x.getContext("2d");
@@ -105,4 +113,12 @@ function drawline3(color){
   line3.closePath();
 }
 
+function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 
