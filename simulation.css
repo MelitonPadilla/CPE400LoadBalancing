@@ -6,12 +6,16 @@
     float: left;
 }*/
 
-fieldset{
+fieldset
+{
+    position: fixed;
+
+    display: inline-block;
+
     border: solid 1px black;
-    display:inline-block;
-    position: fixed;  
 }
 
-tr {
+tr
+{
     text-align: center;
 }

@@ -76,11 +76,11 @@ initialize();
 
 // bind event handler to clear button
 function reset(){
-
-  var canvas = document.getElementById('canvas');
-  var context = canvas.getContext('2d');
-  context.clearRect(0, 0, canvas.width, canvas.height);
-  initialize();
+  location.reload();
+  // var canvas = document.getElementById('canvas');
+  // var context = canvas.getContext('2d');
+  // context.clearRect(0, 0, canvas.width, canvas.height);
+  // initialize();
 }
 
 function drawLine1(color){
@@ -141,7 +141,7 @@ function roundRobin(){
          var it;
 
          if( n > 3)
-	         n = 1;
+           n = 1;
 
          if( n === 1) {
             node1Conn++;
@@ -149,16 +149,17 @@ function roundRobin(){
          }
          else if( n === 2) {
             node2Conn++;
-            it = new iteration(i,node1Conn,node2Conn,node3Conn,node2,0,0,"USA");	
+            it = new iteration(i,node1Conn,node2Conn,node3Conn,node2,0,0,"USA");  
          }
          else if( n === 3) {
             node3Conn++;
             it = new iteration(i,node1Conn,node2Conn,node3Conn,node3,0,0,"USA");
          }
-	 
+   
          table.push(it);          
    }   
    printResults(table);
+   simulateColors(table);
    return table;
 }
 
@@ -302,4 +303,101 @@ function printResults(arr){
     }
 }
 
+function simulateColors(arr) {
+    tableLength = arr.length;
+    var x = document.getElementById("canvas");
 
+    var fun = function(i) {
+      
+        if (i === tableLength) {
+            return;
+        }
+      
+        current = arr[i].currentNode;
+
+        if (current == 1) {
+          // there
+            var line1 = x.getContext("2d");
+            line1.beginPath();
+            line1.moveTo(465, 220);
+            line1.lineTo(350, 400);
+            line1.strokeStyle = 'red';
+            line1.lineWidth = 10;
+            line1.stroke();
+            line1.closePath();
+
+            setTimeout(
+              function() {
+                line1.beginPath();
+                line1.moveTo(465, 220);
+                line1.lineTo(350, 400);
+                line1.strokeStyle = 'black';
+                line1.lineWidth = 10;
+                line1.stroke();
+                line1.closePath();
+
+                fun(++i);
+              }
+              ,
+              2000);
+
+
+        }
+
+        if (current == 2) {
+            var line2 = x.getContext("2d");
+            line2.beginPath();
+          //asdsadsad
+            line2.moveTo(500, 240);
+            line2.lineTo(500, 400);
+            line2.strokeStyle = 'red';
+            line2.lineWidth = 10;
+            line2.stroke();
+            line2.closePath();
+
+            setTimeout(
+              function() {
+                line2.beginPath();
+                line2.moveTo(500, 240);
+                line2.lineTo(500, 400);
+                line2.strokeStyle = 'black';
+                line2.lineWidth = 10;
+                line2.stroke();
+                line2.closePath();
+
+                fun(++i);
+              }
+              ,
+              2000);
+        }
+
+        if (current == 3) {
+            var line3 = x.getContext("2d");
+            line3.beginPath();
+            line3.moveTo(535, 220);
+            line3.lineTo(655, 400);
+            line3.strokeStyle = 'red';
+            line3.lineWidth = 10;
+            line3.stroke();
+            line3.closePath();
+
+
+            setTimeout(
+              function() {
+                line3.beginPath();
+                line3.moveTo(535, 220);
+                line3.lineTo(655, 400);
+                line3.strokeStyle = 'black';
+                line3.lineWidth = 10;
+                line3.stroke();
+                line3.closePath();
+
+                fun(++i);
+              }
+              ,
+              2000);
+    }
+
+  }
+  fun(0);
+}
