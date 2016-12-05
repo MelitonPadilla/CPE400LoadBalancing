@@ -11,3 +11,7 @@ fieldset{
     display:inline-block;
     position: fixed;  
 }
+
+tr {
+    text-align: center;
+}

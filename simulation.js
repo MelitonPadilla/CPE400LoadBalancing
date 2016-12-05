@@ -75,20 +75,13 @@ function initialize() {
 initialize();
 
 // bind event handler to clear button
-document.getElementById('reset').addEventListener('click', function() {
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        initialize();
-      }, false);
+function reset(){
 
-document.getElementById('reset').addEventListener('click', function() {
-        var canvas = document.getElementById('canvas');
-        var context = canvas.getContext('2d');
-        context.clearRect(0, 0, canvas.width, canvas.height);
-        initialize();
-      }, false);
-
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+  context.clearRect(0, 0, canvas.width, canvas.height);
+  initialize();
+}
 
 function drawLine1(color){
   var x = document.getElementById("canvas");
@@ -132,7 +125,7 @@ function sleep(milliseconds) {
   }
 }
 
-function roundRobin(numIterations){
+function roundRobin(){
     //constructor(step, node1Conn, node2Conn, node3Conn, currentNode, latency, cpu, region )
 
    var node1 = 1;
@@ -142,13 +135,13 @@ function roundRobin(numIterations){
    var node2Conn = 0;
    var node3Conn = 0;
    var table = [];
-   var n = 0;
+   var n = 1;
 
-   for( var i = 0; i < numIterations; i++, n++) {
+   for( var i = 0; i < 20; i++, n++) {
          var it;
 
          if( n > 3)
-	    n = 0;
+	         n = 1;
 
          if( n === 1) {
             node1Conn++;
@@ -165,12 +158,13 @@ function roundRobin(numIterations){
 	 
          table.push(it);          
    }   
+   printResults(table);
    return table;
 }
 
 //TODO///Latency numbers
 
-function lowestLatency(numIterations){
+function lowestLatency(){
    var node1 = 1;
    var node2 = 2;
    var node3 = 3;  
@@ -180,7 +174,7 @@ function lowestLatency(numIterations){
    var table = [];
    var lowLatencyNode = 0;
 
-   for( var i = 0; i < numIterations; i++) {
+   for( var i = 0; i < 20; i++) {
 
       var it;
 
@@ -202,50 +196,106 @@ function lowestLatency(numIterations){
       
       table.push(it);
    }
-
+   printResults(table);
    return table;
 }
 //TODO// generate broken connections?
 function leastConnection(numIterations){
 }
 
-function ratio(numIterations){
+function ratio(){
+   var node1 = 1;
+   var node2 = 2;
+   var node3 = 3;  
+   var node1Conn = 0;
+   var node2Conn = 0;
+   var node3Conn = 0;
+   var table = [];
+   var node1Max = 1;
+   var node2Max = 2;
+   var node3Max = 3;
+   var currentN1 = 0;
+   var currentN2 = 0;
+   var currentN3 = 0;
+   var n = 1;
+   
+   for( var i = 0; i < 20; i++, n++) {
+      var it;
+      
+      if(n > 3 )
+         n = 1;
+         
+      if( n === 1 && currentN1 < node1Max) {
+         currentN1++;
+         if(currentN1 === node1Max)
+            currentN1 = 0;      
+         node1Conn++
+         it = new iteration(i,node1Conn,node2Conn,node3Conn,node1,0,0,"USA");
+      }
+      
+      else if( n === 2 && currentN2 < node2Max) {
+         currentN2++;
+         if(currentN2 === node2Max)
+            currentN2 = 0;        
+         node2Conn++;
+         it = new iteration(i,node1Conn,node2Conn,node3Conn,node1,0,0,"USA");
+      }
+      
+      else if( n === 3 && currentN3 < node3Max) {
+         currentN3++;
+         if(currentN3 === node3Max)
+            currentN3 = 0;        
+         node3Conn++;
+         it = new iteration(i,node1Conn,node2Conn,node3Conn,node1,0,0,"USA");
+      }
+      table.push(it);        
+   }
+   console.log(table);
+   printResults(table);
+   return table;
 }
+
 
 
 function printResults(arr){
 
+  tableLength = arr.length;
+
   var tbl = document.getElementById("output");
-  
-  for( var period = 1; period <= totalPeriods; period++ ){
+  for( var stepSim = 0; stepSim < tableLength; stepSim++ ){
         
     var tr = document.createElement('tr');
 
     var td = document.createElement('td');
-    td.appendChild(document.createTextNode(roundNumber(balance)));
+    td.appendChild(document.createTextNode(arr[stepSim].step + 1));
     tr.appendChild(td);
 
     td = document.createElement('td');
-    td.appendChild(document.createTextNode(roundNumber(payment)));
+    td.appendChild(document.createTextNode(arr[stepSim].node1Conn));
     tr.appendChild(td);
 
     td = document.createElement('td');
-    interest = balance * intRateNum;
-    td.appendChild(document.createTextNode(roundNumber(interest)));
+    td.appendChild(document.createTextNode(arr[stepSim].node2Conn));
     tr.appendChild(td);
 
     td = document.createElement('td');
-    principal = payment - interest;
-    td.appendChild(document.createTextNode(roundNumber(principal)));
+    td.appendChild(document.createTextNode(arr[stepSim].node3Conn));
     tr.appendChild(td);
 
     td = document.createElement('td');
-    balance = balance - principal;
-    td.appendChild(document.createTextNode(roundNumber(balance)));
+    td.appendChild(document.createTextNode(arr[stepSim].currentNode));
     tr.appendChild(td);
 
     td = document.createElement('td');
-    td.appendChild(document.createTextNode(period));
+    td.appendChild(document.createTextNode(arr[stepSim].latency));
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    td.appendChild(document.createTextNode(arr[stepSim].cpu));
+    tr.appendChild(td);
+
+    td = document.createElement('td');
+    td.appendChild(document.createTextNode(arr[stepSim].region));
     tr.appendChild(td);
 
     tbl.appendChild(tr);
