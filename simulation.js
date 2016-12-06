@@ -70,52 +70,80 @@ function initialize() {
   line3.stroke();
   line3.closePath();
 
+    var inputLine = x.getContext("2d");
+    inputLine.beginPath();
+    inputLine.moveTo(200, 203);
+    inputLine.lineTo(460, 203);
+    inputLine.strokeStyle = 'black';
+    inputLine.stroke();
+    inputLine.closePath();
 }
 
 initialize();
 
-// bind event handler to clear button
-function reset(){
-  location.reload();
-  // var canvas = document.getElementById('canvas');
-  // var context = canvas.getContext('2d');
-  // context.clearRect(0, 0, canvas.width, canvas.height);
-  // initialize();
+// bind event handler to reset button
+// clears the screen
+function reset() {
+    location.reload();
 }
 
-function drawLine1(color){
-  var x = document.getElementById("canvas");
-  var line1 = x.getContext("2d");
-  line1.beginPath();
-  line1.moveTo(465,220);
-  line1.lineTo(350,400);
-  line1.strokeStyle = color;
-  line1.stroke();
-  line1.closePath();
+
+function drawLine1(color) {
+    var x = document.getElementById("canvas");
+    var line1 = x.getContext("2d");
+    line1.beginPath();
+    line1.moveTo(465, 220);
+    line1.lineTo(350, 400);
+    line1.strokeStyle = color;
+    line1.lineWidth = 10;
+    line1.stroke();
+    line1.closePath();
 }
 
-function drawline2(color){
-  var x = document.getElementById("canvas");
-  var line2 = x.getContext("2d");
-  line2.beginPath();
-  line2.moveTo(500,240);
-  line2.lineTo(500,400);
-  line2.strokeStyle = color;
-  line2.stroke();
-  line2.closePath();
+function drawLine2(color) {
+    var x = document.getElementById("canvas");
+    var line2 = x.getContext("2d");
+    line2.beginPath();
+    line2.moveTo(500, 240);
+    line2.lineTo(500, 400);
+    line2.lineWidth = 10;
+    line2.strokeStyle = color;
+    line2.stroke();
+    line2.closePath();
 }
 
-function drawline3(color){
-  var x = document.getElementById("canvas");
-  var line3 = x.getContext("2d");
-  line3.beginPath();
-  line3.moveTo(535,220);
-  line3.lineTo(655,400);
-  line3.strokeStyle = color;
-  line3.stroke();
-  line3.closePath();
+function drawLine3(color) {
+    var x = document.getElementById("canvas");
+    var line3 = x.getContext("2d");
+    line3.beginPath();
+    line3.moveTo(535, 220);
+    line3.lineTo(655, 400);
+    line3.lineWidth = 10;
+    line3.strokeStyle = color;
+    line3.stroke();
+    line3.closePath();
 }
 
+function drawStep(currStep) {
+    var x = document.getElementById("canvas");
+    var draw = x.getContext("2d");
+    draw.beginPath();
+    draw.font = "20px Georgia";
+    draw.fillStyle = 'black';
+    draw.fillText("Step: " + currStep, 600, 80);
+    draw.closePath();
+}
+
+function clearStep() {
+    var x = document.getElementById("canvas");
+    var draw = x.getContext("2d");
+
+    draw.beginPath();
+    draw.fillStyle = 'white';
+    draw.fillRect(595, 45, 80, 80);
+    draw.stroke();
+    draw.closePath();
+}
 function sleep(milliseconds) {
   var start = new Date().getTime();
   for (var i = 0; i < 1e7; i++) {
@@ -163,7 +191,7 @@ function roundRobin(){
    return table;
 }
 
-function lowestLatency(numIterations){
+function lowestLatency(){
    var node1 = 1;
    var node2 = 2;
    var node3 = 3;  
@@ -209,11 +237,13 @@ function lowestLatency(numIterations){
       
       table.push(it);
    }
+   printResults(table);
+   simulateColors(table);
    return table;
 }
 
 //TODO// is the parameter required?
-function leastConnections(maxConnections) {
+function leastConnections() {
      var node1 = 1;
      var node2 = 2;
      var node3 = 3;  
@@ -226,9 +256,9 @@ function leastConnections(maxConnections) {
 
      //generate the # of initial connections per node. NOTE: node connections are fixed in simulation.
      node1Conn =  0;
-     node2Conn = 15;    
+     node2Conn = 8;    
      //numIterations would also be used as a max in this simulation.
-     node3Conn = maxConnections;
+     node3Conn = 20;
 
      while(node1Conn != node2Conn || node2Conn != node3Conn) {
 
@@ -244,7 +274,7 @@ function leastConnections(maxConnections) {
            node2Conn++;
 	   it = new iteration(i,node1Conn,node2Conn,node3Conn,node2,0,0,"USA");
         }
-        else if(mindNode === node3Conn) {
+        else if(minNode === node3Conn) {
            node3Conn++;
 	   it = new iteration(i,node1Conn,node2Conn,node3Conn,node3,0,0,"USA");
         }
@@ -253,11 +283,12 @@ function leastConnections(maxConnections) {
         table.push(it);
 
      }
-
+   printResults(table);
+   simulateColors(table);
    return table;
 }
 //node 1 has 1x weight, node 2 has 2x weight, node 3 has 3x weight
-function ratio(numIterations){
+function ratio(){
 
    var node1 = 1;
    var node2 = 2;
@@ -275,7 +306,7 @@ function ratio(numIterations){
    var n = 1;
    var doneIteration = false;
   
-   for( var i = 0; i < numIterations; i++,n++) {
+   for( var i = 0; i < 20; i++,n++) {
    
       var it; 
       
@@ -315,18 +346,10 @@ function ratio(numIterations){
                
       table.push(it);      
    }
-   
-   console.log(table);
+   printResults(table);
+   simulateColors(table);   
    return table;
 }
-
-
-
-
-
-var s = leastConnections(20);
-console.log(s);
-
 
 function printResults(arr){
 
@@ -376,98 +399,59 @@ function printResults(arr){
 function simulateColors(arr) {
     tableLength = arr.length;
     var x = document.getElementById("canvas");
+    var red = 'red';
+    var black = 'black';
 
-    var fun = function(i) {
-      
+    var callNextStep = function(i) {
+
         if (i === tableLength) {
             return;
         }
-      
+
         current = arr[i].currentNode;
 
         if (current == 1) {
-          // there
-            var line1 = x.getContext("2d");
-            line1.beginPath();
-            line1.moveTo(465, 220);
-            line1.lineTo(350, 400);
-            line1.strokeStyle = 'red';
-            line1.lineWidth = 10;
-            line1.stroke();
-            line1.closePath();
+
+            var currStep = arr[i].step + 1;
+            drawLine1(red);
+            drawStep(currStep);
 
             setTimeout(
-              function() {
-                line1.beginPath();
-                line1.moveTo(465, 220);
-                line1.lineTo(350, 400);
-                line1.strokeStyle = 'black';
-                line1.lineWidth = 10;
-                line1.stroke();
-                line1.closePath();
-
-                fun(++i);
-              }
-              ,
-              2000);
-
-
+                function() {
+                    drawLine1(black);
+                    clearStep();
+                    callNextStep(++i);
+                }, 2000);
         }
 
         if (current == 2) {
-            var line2 = x.getContext("2d");
-            line2.beginPath();
-          //asdsadsad
-            line2.moveTo(500, 240);
-            line2.lineTo(500, 400);
-            line2.strokeStyle = 'red';
-            line2.lineWidth = 10;
-            line2.stroke();
-            line2.closePath();
+
+            var currStep = arr[i].step + 1;
+            drawLine2(red);
+            drawStep(currStep);
 
             setTimeout(
-              function() {
-                line2.beginPath();
-                line2.moveTo(500, 240);
-                line2.lineTo(500, 400);
-                line2.strokeStyle = 'black';
-                line2.lineWidth = 10;
-                line2.stroke();
-                line2.closePath();
-
-                fun(++i);
-              }
-              ,
-              2000);
+                function() {
+                    drawLine2(black);
+                    clearStep();
+                    callNextStep(++i);
+                }, 2000);
         }
 
         if (current == 3) {
-            var line3 = x.getContext("2d");
-            line3.beginPath();
-            line3.moveTo(535, 220);
-            line3.lineTo(655, 400);
-            line3.strokeStyle = 'red';
-            line3.lineWidth = 10;
-            line3.stroke();
-            line3.closePath();
 
+            var currStep = arr[i].step + 1;
+            drawLine3(red);
+            drawStep(currStep);
 
             setTimeout(
-              function() {
-                line3.beginPath();
-                line3.moveTo(535, 220);
-                line3.lineTo(655, 400);
-                line3.strokeStyle = 'black';
-                line3.lineWidth = 10;
-                line3.stroke();
-                line3.closePath();
-
-                fun(++i);
-              }
-              ,
-              2000);
+                function() {
+                    drawLine3(black);
+                    clearStep();
+                    callNextStep(++i);
+                }, 2000);
+        }
     }
-
-  }
-  fun(0);
+    callNextStep(0);
 }
+
