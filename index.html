@@ -8,12 +8,14 @@
 
 </head>
 	<body>
+    <h1>Cloud Load Balancing Simulation</h1>
 	<div>
 	<input type="button" id="reset" value="Reset" onclick="reset()">
 	<input type="button" id="roundrobin" value="Round Robin" onclick="roundRobin()">
     <input type="button" id="lowestlatency" value="Lowest Latency" onclick="lowestLatency()">
     <input type="button" id="leastConnections" value="Least Connections" onclick="leastConnections()">
-    <input type="button" id="ratio" value="Least Connections" onclick="ratio()">
+    <input type="button" id="weightedroundrobin" value="Weighted Round Robin" onclick="weightedRoundRobin()">
+    <input type="button" id="tdma" value="Enhanced TDMA" onclick="enhancedTDMA()">
  	</div>
 	<div>
 	<canvas id="canvas" width="800" height="700" style="border:1px solid #000000;"></canvas>

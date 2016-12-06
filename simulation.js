@@ -153,7 +153,7 @@ function sleep(milliseconds) {
   }
 }
 
-function weightedRoundRobin(){
+function roundRobin(){
     //constructor(step, node1Conn, node2Conn, node3Conn, currentNode, latency, cpu, region )
 
    var node1 = 1;
@@ -242,7 +242,7 @@ function lowestLatency(){
    return table;
 }
 
-function enhancedTDMA(numIterations){
+function enhancedTDMA(){
 
    var node1 = 1;
    var node2 = 2;
@@ -262,7 +262,7 @@ function enhancedTDMA(numIterations){
    var currentItNode = 0;
 
    for(var i = 0; i < 20; i++,timeSegment++){
-   
+   console.log(timeSegment);
       var it;
 
       if(timeSegment === 1) {
@@ -271,7 +271,7 @@ function enhancedTDMA(numIterations){
         do {
            chosenNode2 = Math.floor((Math.random() * 3) + 1);
         }
-        while (chosenNode1 == chosenNode2); 
+        while (chosenNode1 === chosenNode2); 
       }
 
       //generate cpu utilization for the 2 nodes.
@@ -304,12 +304,13 @@ function enhancedTDMA(numIterations){
       }
 
       if(timeSegment === timeFrame){
-         timeSegment = 1;
+         timeSegment = 0;
       }
 
       table.push(it);
    }
-
+printResults(table);
+simulateColors(table);
 return table;
 }
 
@@ -360,7 +361,7 @@ function leastConnections() {
    return table;
 }
 //node 1 has 1x weight, node 2 has 2x weight, node 3 has 3x weight
-function ratio(){
+function weightedRoundRobin(){
 
    var node1 = 1;
    var node2 = 2;
