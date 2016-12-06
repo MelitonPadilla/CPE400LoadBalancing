@@ -211,10 +211,51 @@ function lowestLatency(numIterations){
    }
    return table;
 }
-//TODO// generate broken connections?
-function leastConnection(numIterations){
-}
 
+//TODO// is the parameter required?
+function leastConnections(maxConnections) {
+     var node1 = 1;
+     var node2 = 2;
+     var node3 = 3;  
+     var node1Conn = 0;
+     var node2Conn = 0;
+     var node3Conn = 0;
+     var table = [];
+     var minNode = 0;
+     var i = 0;  
+
+     //generate the # of initial connections per node. NOTE: node connections are fixed in simulation.
+     node1Conn =  0;
+     node2Conn = 15;    
+     //numIterations would also be used as a max in this simulation.
+     node3Conn = maxConnections;
+
+     while(node1Conn != node2Conn || node2Conn != node3Conn) {
+
+        var it;
+        minNode = Math.min(node1Conn,node2Conn,node3Conn);
+
+        if(minNode === node1Conn) {
+           node1Conn++;
+	   it = new iteration(i,node1Conn,node2Conn,node3Conn,node1,0,0,"USA");
+	}
+
+        else if(minNode === node2Conn) {
+           node2Conn++;
+	   it = new iteration(i,node1Conn,node2Conn,node3Conn,node2,0,0,"USA");
+        }
+        else if(mindNode === node3Conn) {
+           node3Conn++;
+	   it = new iteration(i,node1Conn,node2Conn,node3Conn,node3,0,0,"USA");
+        }
+          
+        i++;
+        table.push(it);
+
+     }
+
+   return table;
+}
 //node 1 has 1x weight, node 2 has 2x weight, node 3 has 3x weight
 function ratio(numIterations){
 
@@ -278,6 +319,13 @@ function ratio(numIterations){
    console.log(table);
    return table;
 }
+
+
+
+
+
+var s = leastConnections(20);
+console.log(s);
 
 
 function printResults(arr){
