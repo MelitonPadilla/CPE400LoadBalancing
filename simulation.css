@@ -4,6 +4,12 @@ h1
 	text-align: center;
 }
 
+h4
+{
+	width: 100%;
+	text-align: center;
+}
+
 fieldset
 {
     position: absolute;
@@ -28,4 +34,3 @@ p
     width: 100%;
     text-align: center; 
 }
-

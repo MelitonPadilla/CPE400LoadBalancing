@@ -85,78 +85,87 @@ $(function() { // on dom ready
 
         var graph = [];
 
-        function enhancedEnforced(table, preferredRegion, cpuWindow, latencyWindow) {
+function enhancedEnforced(table) {
 
-            var node1 = 1;
-            var node2 = 2;
-            var node3 = 3;
-            var node1Conn = 0;
-            var node2Conn = 0;
-            var node3Conn = 0;
-            var latency = 0;
-            var cpu = 0;
+    var node1 = 1;
+    var node2 = 2;
+    var node3 = 3;
+    var node1Conn = 0;
+    var node2Conn = 0;
+    var node3Conn = 0;
+    var latency = 0;
+    var cpu = 0;
 
-            if (preferredRegion === 1)
-                defaultRegion = 2;
-            else
-                defaultRegion = 1;
+    userInput = getInputVals();
+    preferredCPU = userInput.prefcpu;
+    preferredLatency = userInput.preflatency;
+    preferredRegion = userInput.region;
+    cpuWindow = userInput.cpuRange;
+    latencyWindow = userInput.latencyRange;
 
-            for (var i = 0; i < 20; i++) {
-                var it;
+    if (preferredRegion === 1)
+        defaultRegion = 2;
+    else
+        defaultRegion = 1;
 
-                latency = Math.floor((Math.random() * 200) + 1);
+    for (var i = 0; i < 20; i++) {
+        var it;
 
-                cpu = Math.floor((Math.random() * 99) + 20);
+        latency = Math.floor((Math.random() * 200) + 1);
 
-                if (withinWindow(latency, latencyWindow) && withinWindow(cpu, cpuWindow)) {
-                    if (preferredRegion === 1) {
-                        node1Conn++;
-                        it = new iteration(i, node1Conn, node2Conn, node3Conn, node1, latency, cpu, "USA");
-                    }
-                    if (preferredRegion === 2) {
-                        node2Conn++;
-                        it = new iteration(i, node1Conn, node2Conn, node3Conn, node2, latency, cpu, "Russia");
-                    }
-                    if (preferredRegion === 3) {
-                        node3Conn++;
-                        it = new iteration(i, node1Conn, node2Conn, node3Conn, node3, latency, cpu, "China");
-                    }
-                }
+        cpu = Math.floor((Math.random() * 99) + 20);
 
-                //else load balance iteration to default server.
-                else {
-
-                    latency = Math.floor((Math.random() * 200) + 1);
-
-                    cpu = Math.floor((Math.random() * 99) + 20);
-
-                    if (defaultRegion === 1) {
-                        node1Conn++;
-                        it = new iteration(i, node1Conn, node2Conn, node3Conn, node1, latency, cpu, "USA");
-                    }
-                    if (defaultRegion === 2) {
-                        node2Conn++;
-                        it = new iteration(i, node1Conn, node2Conn, node3Conn, node2, latency, cpu, "Russia");
-                    }
-                    if (defaultRegion === 3) {
-                        node3Conn++;
-                        it = new iteration(i, node1Conn, node2Conn, node3Conn, node3, latency, cpu, "China");
-                    }
-
-                }
-                table.push(it);
+        if (withinWindow(latency, latencyWindow, preferredLatency) && withinWindow(cpu, cpuWindow, preferredCPU)) {
+            if (preferredRegion === 1) {
+                node1Conn++;
+                it = new iteration(i, node1Conn, node2Conn, node3Conn, node1, latency, cpu, "USA");
             }
-            printResults(table);
-            return table;
+            if (preferredRegion === 2) {
+                node2Conn++;
+                it = new iteration(i, node1Conn, node2Conn, node3Conn, node2, latency, cpu, "Russia");
+            }
+            if (preferredRegion === 3) {
+                node3Conn++;
+                it = new iteration(i, node1Conn, node2Conn, node3Conn, node3, latency, cpu, "China");
+            }
         }
 
-        function withinWindow(actual, window) {
+        // //else load balance iteration to default server.
+        else {
 
-            if (Math.abs(actual - window) <= window)
-                return true;
-            else
-                return false;
+            latency = Math.floor((Math.random() * 200) + 1);
+
+            cpu = Math.floor((Math.random() * 99) + 20);
+
+            if (defaultRegion === 1) {
+                node1Conn++;
+                it = new iteration(i, node1Conn, node2Conn, node3Conn, node1, latency, cpu, "USA");
+            }
+            if (defaultRegion === 2) {
+                node2Conn++;
+                it = new iteration(i, node1Conn, node2Conn, node3Conn, node2, latency, cpu, "Russia");
+            }
+            if (defaultRegion === 3) {
+                node3Conn++;
+                it = new iteration(i, node1Conn, node2Conn, node3Conn, node3, latency, cpu, "China");
+            }
+
         }
+        table.push(it);
+    }
+    printResults(table);
+    return table;
+}
+
+function withinWindow(actual, window, preferred) {
+
+    if (Math.abs(actual - preferred) <= window)
+        return true;
+
+    else
+        return false
+}
+
 
         enhancedEnforced(graph);
 

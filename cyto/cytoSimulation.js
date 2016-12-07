@@ -44,3 +44,28 @@ function printResults(arr){
     }
 }
 
+function getInputVals() {
+    var inputValues = { prefcpu: "", preflatency: "", cpuRange: "", latencyRange: "", region: "" };
+
+    inputValues.prefcpu = parseInt(document.getElementById("prefcpu").value);
+    inputValues.preflatency = parseInt(document.getElementById("preflatency").value);
+    inputValues.cpuRange = parseInt(document.getElementById("cpurange").value);
+    inputValues.latencyRange = parseInt(document.getElementById("latencyrange").value);
+
+
+    if (document.getElementById('r1').checked) {
+        inputValues.region = parseInt(document.getElementById('r1').value);
+    }
+    if (document.getElementById('r2').checked) {
+        inputValues.region = parseInt(document.getElementById('r2').value);
+    }
+    if (document.getElementById('r3').checked) {
+        inputValues.region = parseInt(document.getElementById('r3').value);
+    }
+    return inputValues;
+}
+
+
+
+
+
