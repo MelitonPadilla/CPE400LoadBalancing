@@ -1,3 +1,5 @@
+// Object for simulation
+// Objects are pushed into array and then passed to print the table and visualize the simulation
 function iteration (step, node1Conn, node2Conn, node3Conn, currentNode, latency, cpu, region ) {
     this.step = step;
     this.node1Conn = node1Conn;
@@ -9,6 +11,7 @@ function iteration (step, node1Conn, node2Conn, node3Conn, currentNode, latency,
     this.region = region;    
 }
 
+// Initializes the canvas for the visualization
 function initialize() {
   var x = document.getElementById("canvas");
   var cr = x.getContext("2d");
@@ -87,7 +90,7 @@ function reset() {
     location.reload();
 }
 
-
+// draw line 1
 function drawLine1(color) {
     var x = document.getElementById("canvas");
     var line1 = x.getContext("2d");
@@ -100,6 +103,7 @@ function drawLine1(color) {
     line1.closePath();
 }
 
+// draw line 2
 function drawLine2(color) {
     var x = document.getElementById("canvas");
     var line2 = x.getContext("2d");
@@ -112,6 +116,7 @@ function drawLine2(color) {
     line2.closePath();
 }
 
+// draw line 3
 function drawLine3(color) {
     var x = document.getElementById("canvas");
     var line3 = x.getContext("2d");
@@ -124,6 +129,7 @@ function drawLine3(color) {
     line3.closePath();
 }
 
+// shows the current step on the canvas
 function drawStep(currStep) {
     var x = document.getElementById("canvas");
     var draw = x.getContext("2d");
@@ -134,6 +140,7 @@ function drawStep(currStep) {
     draw.closePath();
 }
 
+// erases the current step on the canvas
 function clearStep() {
     var x = document.getElementById("canvas");
     var draw = x.getContext("2d");
@@ -145,6 +152,8 @@ function clearStep() {
     draw.closePath();
 }
 
+// prints the results from the simulation
+// TODO: clear table
 function printResults(arr){
 
   tableLength = arr.length;
@@ -190,6 +199,8 @@ function printResults(arr){
     }
 }
 
+// Reads array of iteration values to simulate on screen
+// waits 2 seconds in between steps
 function simulateColors(arr) {
     tableLength = arr.length;
     var x = document.getElementById("canvas");
@@ -249,6 +260,7 @@ function simulateColors(arr) {
     callNextStep(0);
 }
 
+// Gets user input values for Enhanced TDMA
 function getInputVals() {
     var inputValues = { prefcpu: "", preflatency: "", cpuRange: "", latencyRange: "", region: "" };
 

@@ -1,3 +1,4 @@
+// Round Robin
 function roundRobin() {
     //constructor(step, node1Conn, node2Conn, node3Conn, currentNode, latency, cpu, region )
 
@@ -34,6 +35,7 @@ function roundRobin() {
     return table;
 }
 
+// Lowest Latency
 function lowestLatency() {
     var node1 = 1;
     var node2 = 2;
@@ -85,6 +87,7 @@ function lowestLatency() {
     return table;
 }
 
+// Enhanced TDMA
 function enhancedTDMA() {
 
     var node1 = 1;
@@ -152,7 +155,7 @@ function enhancedTDMA() {
 }
 
 
-//TODO// is the parameter required?
+// Least Connections
 function leastConnections() {
     var node1 = 1;
     var node2 = 2;
@@ -256,7 +259,7 @@ function weightedRoundRobin() {
     return table;
 }
 
-
+// Enhanced Enforced
 function enhancedEnforced() {
 
     var node1 = 1;
@@ -331,6 +334,7 @@ function enhancedEnforced() {
     return table;
 }
 
+// Checks if the generated value is within the window
 function withinWindow(actual, window, preferred) {
 
     if (Math.abs(actual - preferred) <= window)
