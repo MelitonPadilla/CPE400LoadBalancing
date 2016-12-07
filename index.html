@@ -1,40 +1,73 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset="utf-8">
-  <link rel="stylesheet" href="simulation.css">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Load Balancing Simulation</title>
 
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="simulation.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Load Balancing Simulation</title>
 </head>
-	<body>
+
+<body>
     <h1>Cloud Load Balancing Simulation</h1>
-	<div>
-	<input type="button" id="reset" value="Reset" onclick="reset()">
-	<input type="button" id="roundrobin" value="Round Robin" onclick="roundRobin()">
-    <input type="button" id="lowestlatency" value="Lowest Latency" onclick="lowestLatency()">
-    <input type="button" id="leastConnections" value="Least Connections" onclick="leastConnections()">
-    <input type="button" id="weightedroundrobin" value="Weighted Round Robin" onclick="weightedRoundRobin()">
-    <input type="button" id="tdma" value="Enhanced TDMA" onclick="enhancedTDMA()">
- 	</div>
-	<div>
-	<canvas id="canvas" width="800" height="700" style="border:1px solid #000000;"></canvas>
-    <fieldset>
-        <legend>Results</legend>
-        <table id="output">
-            <tr>
-                <td>Step</td>
-                <td>Node 1 Connections</td>
-                <td>Node 2 Connections</td>
-                <td>Node 3 Connections</td>
-                <td>Current Connection</td>
-                <td>Latency (ms)</td>
-                <td>CPU %</td>
-                <td>Region</td>
-            </tr>
-        </table>
-    </fieldset>
-	</div>
-    <script src="simulation.js"></script>
-	</body>
+    <div class="sim-chooser">
+    <button><a href="index.html">Canvas Simulation</a></button>
+    <button><a href="cyto/Round-robin/index.html">Cytoscape Simulation</a></button>
+    </div>
+    <p>This page features several different types of cloud load balancing algorithms. The algorithms are based on several constrainsts listed in the table on the right. The table features the output of the simulations. The simulation is visualized below, with each step of the visualization corresponding to its value in the table. Specifically the visualization will show the routed path (current connection) for the current step.
+    </br>
+    </br>
+    Descriptions of the Algorithms are as follows (more details can be found in the documentation):
+    </br>
+    </br>
+    <strong>Round Robin:</strong>
+    Requests are routed to servers in order to ensure equal distribution.
+    </br>
+    </br>
+    <strong>Lowest Latency: Requests are routed based on latenc</strong>
+    </br>
+    </br>
+    <strong>Least Connections:</strong>
+    </br>
+    </br>
+    <strong>Weighted Round Robin:</strong>
+    </br>
+    </br>
+    <strong>Enhanced TDMA:</strong>
+    </br>
+    </br>
+    <strong>Note: After every simulation, the reset button must be pressed.
+    </br>Please wait until a simulation is over before starting a new one.</strong>
+    </p>
+        <div>
+            <input type="button" id="roundrobin" value="Round Robin" onclick="roundRobin()">
+            <input type="button" id="lowestlatency" value="Lowest Latency" onclick="lowestLatency()">
+            <input type="button" id="leastConnections" value="Least Connections" onclick="leastConnections()">
+            <input type="button" id="weightedroundrobin" value="Weighted Round Robin" onclick="weightedRoundRobin()">
+            <input type="button" id="tdma" value="Enhanced TDMA" onclick="enhancedTDMA()">
+            <input type="button" id="ef" value="Enhanced Enforced" onclick="enhancedEnforced()">
+            <input type="button" id="reset" value="Reset" onclick="reset()">
+        </div>
+        <div>
+            <canvas id="canvas" width="800" height="700" style="border:1px solid #000000;"></canvas>
+            <fieldset>
+                <legend>Results</legend>
+                <table id="output">
+                    <tr>
+                        <td>Step</td>
+                        <td>Node 1 Connections</td>
+                        <td>Node 2 Connections</td>
+                        <td>Node 3 Connections</td>
+                        <td>Current Connection</td>
+                        <td>Latency (ms)</td>
+                        <td>CPU %</td>
+                        <td>Region</td>
+                    </tr>
+                </table>
+            </fieldset>
+        </div>
+        <script src="simulation.js"></script>
+        <script src="algorithms.js"></script>
+</body>
+
 </html>
